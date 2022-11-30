@@ -39,6 +39,29 @@ with open(filename, mode='r', encoding='UTF-16') as input_file:
             else:
                 # Add the 'View By' value to the row_seen list
                 row_seen.append(row[0])
+                
+                # Column 1 (Cases) will contain the result of adding all other columns, 
+                # 2 through the end of the row, together
+
+                # Skip the first row, we don't want it processed
+                if len(row_seen) > 1:
+                    # Change 'Cases' to 0 after the first row
+                    row[1] = 0
+
+                    # Iterate through each cell in the row
+                    for i, cell in enumerate(row):
+                        # Skip the first two cells
+                        if i < 2: continue
+
+                        # Convert any empty strings into 0
+                        if cell == '':
+                            cell = 0
+                        # Convert any strings into floats and then ints
+                        else:
+                            cell = int(float(cell))
+                        # Add the values together and assign them to the Cases column
+                        row[1] = row[1] + cell
+
                 # Write the result to the file
                 writer.writerow(row)
     
