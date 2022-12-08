@@ -17,10 +17,11 @@ cleaned = []
 # Store the total count
 total_count = 0
 
-# Display the contents of the file
+# Open the specified file, assumes UTF-16 and tab delimited
 with open(filename, mode='r', encoding='UTF-16') as input_file:
     reader = csv.reader(input_file, delimiter='\t')
-
+    
+    # Create an output file with the cleaned data
     with open('Cleaned_'+filename, mode='w', newline='') as output_file:
         writer = csv.writer(output_file)
 
