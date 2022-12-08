@@ -1,4 +1,11 @@
-import csv
+import csv, sys
+
+# Check to see if a file was passed as an argument
+try:
+    filename = sys.argv[1]
+except:
+    # If no argument was passed, prompt for the filename
+    filename = input("Enter the filename: ")
 
 # Assumes first column is 'First Dimension'
 cols_to_remove = [0]
@@ -7,9 +14,8 @@ cols_to_remove = sorted(cols_to_remove, reverse=True)
 row_seen = []
 # Store the cleaned data
 cleaned = []
-
-# Prompt for the filename
-filename = input("Please enter the filename: ")
+# Store the total count
+total_count = 0
 
 # Display the contents of the file
 with open(filename, mode='r', encoding='UTF-16') as input_file:
@@ -61,8 +67,14 @@ with open(filename, mode='r', encoding='UTF-16') as input_file:
                             cell = int(float(cell))
                         # Add the values together and assign them to the Cases column
                         row[1] = row[1] + cell
+                        # Add the value to the total count
+                        total_count = total_count + cell
 
                 # Write the result to the file
                 writer.writerow(row)
+        
+        # Add a final row with the total count
+        final_row = ["Total", total_count]
+        writer.writerow(final_row)
     
     print("File processed and saved as Cleaned_" + filename)
