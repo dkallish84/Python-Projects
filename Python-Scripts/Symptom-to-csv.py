@@ -65,6 +65,7 @@ with open(filename, mode='r', encoding='UTF-16') as input_file:
                             cell = 0
                         # Convert any strings into floats and then ints
                         else:
+                            cell = cell.replace(',', '')
                             cell = int(float(cell))
                         # Add the values together and assign them to the Cases column
                         row[1] = row[1] + cell
